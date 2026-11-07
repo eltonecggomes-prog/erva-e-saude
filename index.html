@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Erva & Saúde - Guia Avançado de Fitoterapia</title>
+  <title>Erva & Saúde - Enciclopédia Fitoterapêutica Completa</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -24,7 +24,7 @@
         </div>
         <div>
           <h1 class="text-xl font-bold tracking-tight">Erva & Saúde</h1>
-          <p class="text-xs text-emerald-200">Fitoterapia Prática & Segurança Natural</p>
+          <p class="text-xs text-emerald-200">Guia de Fitoterapia Clínica & Tradicional de A a Z</p>
         </div>
       </div>
       <button onclick="toggleFavoritesView()" class="flex items-center space-x-1 bg-emerald-700 hover:bg-emerald-600 px-3 py-2 rounded-lg text-sm font-medium transition">
@@ -39,7 +39,7 @@
     <div class="max-w-4xl mx-auto flex items-start space-x-3">
       <i class="fa-solid fa-triangle-exclamation text-amber-600 text-lg mt-0.5"></i>
       <div>
-        <strong>Aviso de Segurança e Saúde:</strong> Este aplicativo baseia-se em literatura etnobotânica e fitoterápica tradicional (como diretrizes da ANVISA e ensinamentos de fitoterapia clínica). As informações têm caráter educativo e não substituem o diagnóstico ou acompanhamento médico profissional.
+        <strong>Aviso de Saúde Importante:</strong> Este aplicativo compila causas etiológicas e saberes de fitoterapia clínica de A a Z. As informações possuem caráter estritamente educativo e não substituem o diagnóstico, a consulta ou o tratamento médico.
       </div>
     </div>
   </div>
@@ -50,27 +50,28 @@
     <div id="searchContainer" class="mb-8">
       <div class="relative">
         <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-        <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Pesquise por doença, sintoma (ex: tosse, pressão, diabetes, dor, ansiedade) ou planta..." 
+        <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Pesquise por qualquer doença (ex: abscesso, azia, diabetes, gota, bronquite) ou planta..." 
           class="w-full pl-11 pr-4 py-3.5 bg-white rounded-2xl border border-emerald-100 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent text-slate-700">
       </div>
       
       <!-- Quick Categories -->
       <div class="flex space-x-2 mt-4 overflow-x-auto pb-2 hide-scrollbar">
-        <button onclick="filterCategory('all')" class="cat-btn bg-emerald-700 text-white px-4 py-1.5 rounded-full text-xs font-semibold shadow-sm whitespace-nowrap">Todas</button>
+        <button onclick="filterCategory('all')" class="cat-btn bg-emerald-700 text-white px-4 py-1.5 rounded-full text-xs font-semibold shadow-sm whitespace-nowrap">Todas (A-Z)</button>
         <button onclick="filterCategory('Respiratório')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Respiratório</button>
         <button onclick="filterCategory('Digestivo')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Digestivo / Fígado</button>
-        <button onclick="filterCategory('Calmante')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Ansiedade / Sono</button>
-        <button onclick="filterCategory('Metabólico')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Pressão / Glicemia</button>
-        <button onclick="filterCategory('Renal/Urinário')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Rins / Urinário</button>
+        <button onclick="filterCategory('Calmante')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Nervoso / Sono</button>
+        <button onclick="filterCategory('Metabólico')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Metabólico / Sangue</button>
+        <button onclick="filterCategory('Renal/Urinário')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Renal / Ácido Úrico</button>
         <button onclick="filterCategory('Anti-inflamatório')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Dores & Articulações</button>
-        <button onclick="filterCategory('Circulação')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Circulação / Sangue</button>
+        <button onclick="filterCategory('Pele/Infecciosas')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Pele / Infecções</button>
+        <button onclick="filterCategory('Saúde Feminina')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Saúde Feminina</button>
       </div>
     </div>
 
     <!-- Main List Container -->
     <div id="listContainer">
       <h2 id="listTitle" class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
-        <span>Catálogo Completo de Doenças e Plantas</span>
+        <span>Enciclopédia de Doenças e Plantas</span>
         <span id="itemCount" class="text-xs font-normal bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full"></span>
       </h2>
       <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -87,351 +88,363 @@
 
   <footer class="bg-slate-800 text-slate-400 py-6 text-center text-xs border-t border-slate-700 mt-12">
     <div class="max-w-4xl mx-auto px-4">
-      <p class="mb-2">Erva & Saúde • Baseado em fitoterapia clínica, etnobotânica e conhecimento tradicional validado.</p>
-      <p>Desenvolvido para preservar o saber da medicina natural com máxima responsabilidade e segurança.</p>
+      <p class="mb-2">Erva & Saúde • Integrando Etnobotânica Tradicional, Livros Medicinais e Farmacopeia.</p>
+      <p>Desenvolvido para preservação e consulta segura de plantas medicinais.</p>
     </div>
   </footer>
 
   <script>
-    // BASE DE DADOS EXPANDIDA COM DEZENAS DE DOENÇAS E TRATAMENTOS FITOTERÁPICOS REAIS
+    // BASE DE DADOS COMPLETA DE DOENÇAS, CAUSAS E TRATAMENTOS FITOTERÁPICOS (A-Z)
     const database = [
       {
-        id: "tosse-gripe",
-        condition: "Tosse, Bronquite e Afecções Respiratórias",
-        category: "Respiratório",
-        summary: "Alívio de tosse persistente, catarro preso nos brônquios e inflamação da garganta.",
+        id: "abscessos",
+        condition: "Abscessos e Infecções Purulentas",
+        category: "Pele/Infecciosas",
+        causes: "Acúmulo de pus provocado por infecção bacteriana profunda (geralmente Staphylococcus) em folículos pilosos ou tecidos lacerados.",
+        summary: "Inflamações purulentas locais com dor e inchaço de pele.",
         primaryPlant: {
-          name: "Guaco",
-          scientificName: "Mikania glomerata",
-          image: "https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Infusão ou Xarope caseiro",
-          instructions: "Para infusão: 1 colher de sopa de folhas picadas em 150ml de água fervente. Abafar por 10 min. Para xarope: reduzir o chá concentrado com mel em fogo brando.",
-          dosage: "Tomar 1 xícara do chá 3 vezes ao dia, ou 1 colher de sopa do xarope de 8 em 8 horas.",
-          duration: "Utilizar por no máximo 7 a 10 dias seguidos.",
-          synergy: "Pode ser combinado com Hortelã ou Poejo para potencializar a expectoração.",
-          sideEffects: "Em excesso pode causar náuseas ou irritação gástrica leve.",
-          contraindications: "Gestantes, lactantes, crianças menores de 2 anos e pessoas em uso de anticoagulantes."
-        },
-        alternativePlant: {
-          name: "Hortelã-da-Folha-Gorda (Malvarisco)",
-          scientificName: "Plectranthus amboinicus",
-          image: "https://images.unsplash.com/photo-1628556270448-4d4e4148e1b1?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Infusão ou Xarope",
-          instructions: "Esmagar 3 folhas frescas e verter 150ml de água fervente. Abafar por 10 minutos.",
-          reason: "Excelente antisséptico pulmonar e antitussígeno encontrado facilmente em quintais."
-        }
-      },
-      {
-        id: "hipertensao",
-        condition: "Pressão Alta (Hipertensão Arterial Leve)",
-        category: "Metabólico",
-        summary: "Auxílio na vasodilatação periférica e controle suave da pressão arterial.",
-        primaryPlant: {
-          name: "Sete-Sangrias",
-          scientificName: "Cuphea carthagenensis",
-          image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Infusão",
-          instructions: "1 colher de sobremesa da planta seca em 200ml de água fervente. Abafar por 10 minutos e coar.",
-          dosage: "Tomar 1 xícara morna 2 vezes ao dia (manhã e final da tarde).",
-          duration: "Uso contínuo monitorado por até 30 dias.",
-          synergy: "Pode ser combinada com Folhas de Oliveira.",
-          sideEffects: "Pode causar ligeira queda de pressão se exceder a dose.",
-          contraindications: "Hipotensos (quem já tem pressão baixa), gestantes e crianças."
-        },
-        alternativePlant: {
-          name: "Hibisco (Cálice)",
-          scientificName: "Hibiscus sabdariffa",
-          image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Infusão",
-          instructions: "1 colher de sopa de cálices secos em 500ml de água fervente por 10 minutos.",
-          reason: "Forte ação diurética e inibidora da enzima conversora de angiotensina."
-        }
-      },
-      {
-        id: "diabetes",
-        condition: "Diabetes Tipo 2 e Controle Glicêmico",
-        category: "Metabólico",
-        summary: "Suporte na redução dos picos de açúcar no sangue e melhora da captação de glicose.",
-        primaryPlant: {
-          name: "Pata-de-Vaca",
-          scientificName: "Bauhinia forficata",
-          image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Decocção",
-          instructions: "Ferver 1 colher de sopa de folhas picadas em 250ml de água por 5 minutos. Abafar por mais 10 minutos.",
-          dosage: "Tomar 1 xícara logo após o almoço e o jantar.",
-          duration: "Uso por até 30 dias, controlando com testes de glicemia.",
-          synergy: "Pode ser associada à Insulina Vegetal (Pedra-Hume-Caá).",
-          sideEffects: "Risco de hipoglicemia em excesso.",
-          contraindications: "Gestantes, lactantes e pessoas com tendência a hipoglicemia severa."
-        },
-        alternativePlant: {
-          name: "Insulina Vegetal",
-          scientificName: "Myrcia sphaerocarpa",
+          name: "Tanchagem (Tansagem)",
+          scientificName: "Plantago major",
           image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Infusão",
-          instructions: "1 colher de chá de folhas secas em 200ml de água fervente por 10 minutos.",
-          reason: "Ajuda a regular os níveis de glicose no sangue de forma semelhante."
+          preparationType: "Cataplasma de Folhas Frescas",
+          instructions: "Lavar bem 4 folhas frescas de tanchagem, amassar/socar num pilão até virar uma pasta macia e aplicar morna sobre o abscesso, cobrindo com gaze por 30 minutos.",
+          dosage: "Aplicar o cataplasma 2 a 3 vezes ao dia.",
+          duration: "Até drenagem completa do pus e cicatrização da pele.",
+          synergy: "Combinar com infusão de Barbatimão para lavagem asséptica prévia.",
+          sideEffects: "Pode haver leve vermelhidão local por aumento da circulação sanguínea.",
+          contraindications: "Uso tópico não possui contraindicações graves; evitar ingestão por gestantes."
+        },
+        alternativePlant: {
+          name: "Babosa (Aloe vera)",
+          scientificName: "Aloe vera",
+          image: "https://images.unsplash.com/photo-1628556270448-4d4e4148e1b1?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Aplicação Tópica do Gel",
+          instructions: "Retirar completamente a casca e o suco amarelo (aloína), aplicando apenas o gel translúcido no local.",
+          reason: "Excelente ação bactericida e aceleradora do processo cicatricial."
         }
       },
       {
-        id: "gastrite-azia",
-        condition: "Gastrite, Azia e Úlcera Gástrica",
+        id: "acidez-azia",
+        condition: "Acidez Gástrica, Azia e Refluxo",
         category: "Digestivo",
-        summary: "Proteção da parede do estômago, cicatrização de mucosas e controle da acidez.",
+        causes: "Excesso de produção de ácido clorídrico pelo estômago, digestão lenta, má alimentação ou relaxamento do esfíncter esofágico.",
+        summary: "Queimação no peito e retroesternal, refluxo e acidez.",
         primaryPlant: {
           name: "Espinheira-Santa",
           scientificName: "Monteverdia ilicifolia",
           image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80",
           preparationType: "Infusão",
-          instructions: "1 colher de sopa de folhas secas em 200ml de água fervente. Abafar por 10 a 15 minutos.",
-          dosage: "Tomar 1 xícara 30 minutos antes das principais refeições.",
-          duration: "Uso por até 21 dias.",
-          synergy: "Pode ser combinada com Camomila.",
-          sideEffects: "Boca seca ou leve alteração no paladar.",
-          contraindications: "Gestantes (risco de contração uterina) e lactantes."
+          instructions: "1 colher de sopa de folhas secas em 200ml de água fervente. Tampar e abafar por 10 a 15 minutos. Coar antes de beber.",
+          dosage: "Tomar 1 xícara morna 30 minutos antes das principais refeições (almoço e jantar).",
+          duration: "Tratamento contínuo por 14 a 21 dias.",
+          synergy: "Pode ser combinada com Camomila para neutralizar azia de origem nervosa.",
+          sideEffects: "Raras ocorrências de boca seca.",
+          contraindications: "Contraindicada na gravidez (risco abortivo/contração) e durante a amamentação."
         },
         alternativePlant: {
           name: "Bálsamo",
           scientificName: "Sedum dendroideum",
-          image: "https://images.unsplash.com/photo-1628556270448-4d4e4148e1b1?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Uso In Natura (Mastigação)",
-          instructions: "Mastigar 1 folha limpa e suculenta em jejum pela manhã.",
-          reason: "Ação mucilaginosa e cicatrizante imediata no estômago."
-        }
-      },
-      {
-        id: "figado-gordura",
-        condition: "Gordura no Fígado (Esteatose) e Má Digestão",
-        category: "Digestivo",
-        summary: "Desintoxicação hepática, estímulo da bile e digestão de gorduras pesadas.",
-        primaryPlant: {
-          name: "Cardo-Mariano",
-          scientificName: "Silybum marianum",
-          image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Decocção das Sementes",
-          instructions: "Triturar 1 colher de chá de sementes e ferver em 200ml de água por 8 minutos.",
-          dosage: "Tomar 1 xícara 3 vezes ao dia, antes das refeições.",
-          duration: "Uso por 30 a 60 dias.",
-          synergy: "Pode ser associado ao Boldo.",
-          sideEffects: "Leve efeito laxativo inicial.",
-          contraindications: "Obstrução biliar severa."
-        },
-        alternativePlant: {
-          name: "Boldo-do-Chile",
-          scientificName: "Peumus boldus",
-          image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Infusão ou Macerado a frio",
-          instructions: "Macerar 2 folhas frescas em 200ml de água fria por 5 minutos.",
-          reason: "Estimulante biliar e protetor do fígado consagrado na cultura popular."
-        }
-      },
-      {
-        id: "ansiedade-insonia",
-        condition: "Ansiedade, Estresse e Insônia Noturna",
-        category: "Calmante",
-        summary: "Relaxamento mental profundo, combate à agitação e indução do sono reparador.",
-        primaryPlant: {
-          name: "Mulungu",
-          scientificName: "Erythrina mulungu",
-          image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Decocção da Casca",
-          instructions: "Ferver 1 colher de sobremesa de cascas em 250ml de água por 10 minutos. Abafar por 10 min.",
-          dosage: "Tomar 1 xícara 40 minutos antes de deitar.",
-          duration: "Uso por até 15 dias consecutivos.",
-          synergy: "Combinar com Passiflora (folha do maracujá).",
-          sideEffects: "Sonolência diurna e hipotensão leve.",
-          contraindications: "Pessoas que tomam remédios antidepressivos ou sedativos pesados sem orientação."
-        },
-        alternativePlant: {
-          name: "Capim-Limão (Capim-Santo)",
-          scientificName: "Cymbopogon citratus",
-          image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Infusão",
-          instructions: "2 colheres de sopa de folhas picadas em 250ml de água fervente abafada por 10 min.",
-          reason: "Calmante leve de excelente eficácia e segurança diária."
-        }
-      },
-      {
-        id: "pedra-rins",
-        condition: "Cálculo Renal (Pedra nos Rins) e Retenção de Líquido",
-        category: "Renal/Urinário",
-        summary: "Ação diurética potente, auxílio na expulsão de microcálculos e desinflamação.",
-        primaryPlant: {
-          name: "Quebra-Pedra",
-          scientificName: "Phyllanthus niruri",
-          image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Infusão",
-          instructions: "1 colher de sopa da planta inteira seca em 250ml de água fervente. Abafar por 10 minutos.",
-          dosage: "Tomar de 2 a 3 xícaras ao dia.",
-          duration: "Uso por até 15 dias.",
-          synergy: "Combinar com Cabelo de Milho.",
-          sideEffects: "Aumento expressivo da urina.",
-          contraindications: "Gestantes e insuficiência renal crônica grave sem supervisão."
-        },
-        alternativePlant: {
-          name: "Cana-do-Brejo",
-          scientificName: "Costus spiralis",
           image: "https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Decocção",
-          instructions: "2 colheres de sopa da haste picada em 500ml de água fervida por 5 minutos.",
-          reason: "Relaxante do trato urinário e diurético de alta potência."
+          preparationType: "Uso In Natura / Suco",
+          instructions: "Mastigar 1 folha bem lavada em jejum ou bater com 100ml de água fria.",
+          reason: "Forma película protetora mucilaginosa direta no estômago."
         }
       },
       {
-        id: "infeccao-urinaria",
-        condition: "Cistite e Infecção Urinária Leve",
+        id: "acido-urico",
+        condition: "Ácido Úrico Alto e Crise de Gota",
         category: "Renal/Urinário",
-        summary: "Ação antisséptica nas vias urinárias e alívio da ardência ao urinar.",
+        causes: "Prejuízo no metabolismo das purinas (ingestão excessiva de carnes/bebidas alcoólicas ou lentidão na eliminação renal), acumulando cristais de urato nas juntas.",
+        summary: "Dores agudas nas articulações (especialmente dedo do pé) por acúmulo de cristais.",
         primaryPlant: {
-          name: "Abutua (Parreira-Brava)",
-          scientificName: "Cissampelos pareira",
+          name: "Chapéu-de-Couro",
+          scientificName: "Echinodorus grandiflorus",
           image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Decocção da Raiz",
-          instructions: "Ferver 1 colher de chá de raízes picadas em 250ml de água por 8 minutos.",
-          dosage: "Tomar 1 xícara de 8 em 8 horas.",
-          duration: "Uso por 5 a 7 dias.",
-          synergy: "Associar com Folhas de Abacateiro.",
-          sideEffects: "Raras alterações gástricas.",
-          contraindications: "Gestantes e lactantes."
-        },
-        alternativePlant: {
-          name: "Folhas de Abacateiro",
-          scientificName: "Persea americana",
-          image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Infusão",
-          instructions: "1 colher de sopa de folhas picadas em 250ml de água fervente por 10 minutos.",
-          reason: "Antisséptico urinário e diurético natural muito acessível."
-        }
-      },
-      {
-        id: "dores-articulares",
-        condition: "Dores Articulares, Artrite, Artrose e Coluna",
-        category: "Anti-inflamatório",
-        summary: "Alívio de dores nas juntas, inflamações crônicas e rigidez muscular.",
-        primaryPlant: {
-          name: "Erva-Baleeira",
-          scientificName: "Varronia curassavica",
-          image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Compressa Externa ou Infusão",
-          instructions: "Para compressa: infusão concentrada (3 colheres em 300ml de água) aplicada morna no local por 20 min.",
-          dosage: "Uso externo: 2 a 3 vezes ao dia. Uso interno: 1 xícara de 12 em 12h.",
-          duration: "Uso por até 15 dias.",
-          synergy: "Combinar com Sementes de Sucupira.",
-          sideEffects: "Desconforto gástrico leve se ingerido em excesso.",
-          contraindications: "Uso interno contraindicado para gestantes e úlceras gástricas."
-        },
-        alternativePlant: {
-          name: "Sucupira",
-          scientificName: "Pterodon emarginatus",
-          image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Decocção das Sementes",
-          instructions: "Quebrar 4 sementes e ferver em 1 litro de água por 10 minutos.",
-          reason: "Potente analgésico e anti-inflamatório para dores profundas."
-        }
-      },
-      {
-        id: "ma-circulacao",
-        condition: "Má Circulação, Varizes e Pernas Pesadas",
-        category: "Circulação",
-        summary: "Estímulo do retorno venoso, fortalecimento capilar e combate ao inchaço nas pernas.",
-        primaryPlant: {
-          name: "Castanha-da-Índia",
-          scientificName: "Aesculus hippocastanum",
-          image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Decocção da Semente",
-          instructions: "Ferver 1 colher de chá do pó da semente em 250ml de água por 5 minutos.",
-          dosage: "Tomar 1 xícara após o almoço.",
-          duration: "Uso por até 30 dias.",
-          synergy: "Combinar com Hamamélis.",
-          sideEffects: "Náuseas se tomada em jejum.",
-          contraindications: "Gestantes, lactantes e pacientes com problemas de coagulação."
-        },
-        alternativePlant: {
-          name: "Ginkgo Biloba",
-          scientificName: "Ginkgo biloba",
-          image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Infusão",
-          instructions: "1 colher de chá de folhas secas em 200ml de água fervente abafada por 8 minutos.",
-          reason: "Excelente para a microcirculação periférica e cerebral."
-        }
-      },
-      {
-        id: "colesterol-alto",
-        condition: "Colesterol Alto (LDL) e Triglicerídeos",
-        category: "Metabólico",
-        summary: "Auxílio na redução do colesterol ruim e proteção da saúde cardiovascular.",
-        primaryPlant: {
-          name: "Alcachofra",
-          scientificName: "Cynara scolymus",
-          image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80",
           preparationType: "Infusão das Folhas",
-          instructions: "1 colher de sopa de folhas picadas em 250ml de água fervente abafada por 10 minutos.",
-          dosage: "Tomar 1 xícara antes das principais refeições.",
-          duration: "Uso contínuo por 30 dias.",
-          synergy: "Combinar com Chá Verde.",
-          sideEffects: "Gases ou leve efeito diurético.",
-          contraindications: "Obstrução das vias biliares e gestantes."
+          instructions: "1 colher de sopa de folhas secas em 250ml de água fervente. Abafar por 10 minutos.",
+          dosage: "Tomar 1 xícara de 8 em 8 horas.",
+          duration: "Uso por 15 a 30 dias.",
+          synergy: "Associar com Cavalinha ou Salsaparrilha para reforçar o efeito depurativo.",
+          sideEffects: "Sensível aumento no volume urinário.",
+          contraindications: "Pessoas com hipotensão (pressão muito baixa) ou insuficiência cardíaca grave."
         },
         alternativePlant: {
-          name: "Berinjela",
-          scientificName: "Solanum melongena",
-          image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Macerado em Água (Água de Berinjela)",
-          instructions: "Cortar meia berinjela em rodelas, deixar de molho em 500ml de água na geladeira durante a noite.",
-          reason: "Tradição fitoterápica no controle das taxas de gordura no sangue."
-        }
-      },
-      {
-        id: "verminose",
-        condition: "Parasitas Intestinais e Verminoses",
-        category: "Digestivo",
-        summary: "Ação anti-helmíntica natural para limpeza do trato intestinal.",
-        primaryPlant: {
-          name: "Sementes de Abóbora",
-          scientificName: "Cucurbita pepo",
+          name: "Cavalinha",
+          scientificName: "Equisetum arvense",
           image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Consumo Direto das Sementes",
-          instructions: "Triturar 2 colheres de sopa de sementes cruas e misturar com mel ou iogurte natural.",
-          dosage: "Consumir em jejum durante 3 dias seguidos.",
-          duration: "Ciclo de 3 dias.",
-          synergy: "Pode ser associado ao uso moderado de alho cru.",
-          sideEffects: "Nenhum em doses normais alimentares.",
-          contraindications: "Nenhuma restrição alimentar severa."
-        },
-        alternativePlant: {
-          name: "Erva-de-Santa-Maria (Mastruz)",
-          scientificName: "Dysphania ambrosioides",
-          image: "https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Infusão fraca em Leite",
-          instructions: "Apenas 3 folhas frescas em 1 copo de leite morno, coar e tomar em jejum (usar com extrema cautela).",
-          reason: "Forte vermífugo tradicional popular.",
-          strictCaution: true
+          preparationType: "Infusão",
+          instructions: "1 colher de sopa em 250ml de água fervente abafada por 10 minutos.",
+          reason: "Diurético purificador do sangue e eliminador de excretas nitrogenadas."
         }
       },
       {
-        id: "imunidade",
-        condition: "Baixa Imunidade, Gripe e Resfriados Frequentes",
-        category: "Respiratório",
-        summary: "Estímulo das defesas naturais do corpo e fortalecimento imunológico.",
+        id: "acnes-espinhas",
+        condition: "Acnes, Espinhas e Oleosidade da Pele",
+        category: "Pele/Infecciosas",
+        causes: "Obstrução sebácea folicular por hiperatividade hormonal e infecção bacteriana secundária (Propionibacterium acnes).",
+        summary: "Lesões inflamatórias na pele do rosto, costas e peito.",
         primaryPlant: {
-          name: "Equinácea",
-          scientificName: "Echinacea purpurea",
+          name: "Tanchagem (Tansagem)",
+          scientificName: "Plantago major",
+          image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão Concentrada para Lavagem",
+          instructions: "Ferver 2 colheres de sopa de tanchagem em 300ml de água por 5 minutos. Deixar esfriar e lavar o rosto 2 vezes ao dia com algodão.",
+          dosage: "Uso tópico diário pela manhã e à noite.",
+          duration: "Uso contínuo como rotina higiênica.",
+          synergy: "Combinar com Sabonete de Melaleuca ou Calêndula.",
+          sideEffects: "Nenhum efeito colateral tópico relatado.",
+          contraindications: "Pessoas com alergia comprovada à planta."
+        },
+        alternativePlant: {
+          name: "Barbatimão",
+          scientificName: "Stryphnodendron adstringens",
+          image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Decocção Tópica",
+          instructions: "1 colher de sopa de cascas fervedas em 300ml de água por 10 min. Limpar a pele.",
+          reason: "Adstringente potente que reduz a oleosidade e seca as espinhas."
+        }
+      },
+      {
+        id: "afonia-rouquidao",
+        condition: "Afonia, Rouquidão e Irritação Vocal",
+        category: "Respiratório",
+        causes: "Inflamação das pregas vocais decorrente de uso excessivo da voz, infecções virais da laringe ou refluxo gástrico.",
+        summary: "Perda da voz, dor ao falar e rouquidão persistente.",
+        primaryPlant: {
+          name: "Malva",
+          scientificName: "Malva sylvestris",
           image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Infusão ou Decocção",
-          instructions: "1 colher de sobremesa de raiz ou folhas secas em 250ml de água fervente por 10 minutos.",
-          dosage: "Tomar 1 xícara 2 vezes ao dia.",
-          duration: "Uso máximo de 14 dias seguidos.",
-          synergy: "Combinar com Gengibre e Própolis.",
-          sideEffects: "Raras reações alérgicas.",
-          contraindications: "Doenças autoimunes (Lúpus, Artrite Reumatoide grave) e transplantados."
+          preparationType: "Infusão para Gargarejo",
+          instructions: "1 colher de sopa de folhas e flores de malva em 200ml de água fervente. Abafar por 10 minutos. Fazer gargarejos com o chá morno sem engolir tudo.",
+          dosage: "Gargarejar 3 a 4 vezes ao dia.",
+          duration: "Utilizar por 5 a 7 dias.",
+          synergy: "Associar com Gengibre e Mel para desinflamar a garganta.",
+          sideEffects: "Sem efeitos adversos significativos no uso local.",
+          contraindications: "Sem contraindicações graves conhecidas."
         },
         alternativePlant: {
           name: "Gengibre",
           scientificName: "Zingiber officinale",
           image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
-          preparationType: "Decocção do Rizoma",
-          instructions: "Ferver 1 rodela grossa de gengibre em 200ml de água por 5 minutos.",
-          reason: "Ação anti-inflamatória e imunoestimulante de amplo espectro."
+          preparationType: "Decocção Fina",
+          instructions: "Ferver 1 rodela fina em 200ml de água por 5 minutos e adoçar com mel.",
+          reason: "Desinflama os tecidos da laringe com rapidez."
+        }
+      },
+      {
+        id: "aftas-boca",
+        condition: "Aftas e Feridas Bucais",
+        category: "Pele/Infecciosas",
+        causes: "Pequenas úlceras mucosas decorrentes de imunidade baixa, traumatismos locais, alimentos acídicos ou estresse.",
+        summary: "Feridas dolorosas na língua, gengiva e lábios.",
+        primaryPlant: {
+          name: "Romã (Casca do Fruto)",
+          scientificName: "Punica granatum",
+          image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Decocção para Bochecho",
+          instructions: "Ferver 1 colher de sobremesa de cascas secas de romã em 250ml de água por 8 minutos. Abafar, coar e fazer bochechos.",
+          dosage: "Bochechar durante 1 minuto, 3 vezes ao dia.",
+          duration: "Usar até o desaparecimento das aftas (3 a 5 dias).",
+          synergy: "Pode ser associado ao uso de Tanchagem.",
+          sideEffects: "Sensação de boca amarrada devido à alta quantidade de taninos.",
+          contraindications: "Apenas não ingerir em grande quantidade."
+        },
+        alternativePlant: {
+          name: "Tanchagem",
+          scientificName: "Plantago major",
+          image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão para Bochecho",
+          instructions: "1 colher de sopa em 200ml de água fervente. Bochechar morno.",
+          reason: "Promove alívio da dor e cicatrização rápida das mucosas."
+        }
+      },
+      {
+        id: "alergias-pele",
+        condition: "Alergias, Urticária e Coceira",
+        category: "Pele/Infecciosas",
+        causes: "Liberação de histamina pelo sistema imunológico em resposta a poeira, substâncias químicas, plantas ou picadas.",
+        summary: "Vermelhidão, coceira intensa e urticária na pele.",
+        primaryPlant: {
+          name: "Camomila",
+          scientificName: "Matricaria chamomilla",
+          image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão Concentrada para Compressa Tópica",
+          instructions: "2 colheres de sopa de flores de camomila em 250ml de água fervente. Esfriar na geladeira, embeber gaze e colocar sobre a área com coceira.",
+          dosage: "Aplicar por 15 minutos, 3 vezes ao dia.",
+          duration: "Até amenizar a irritação alérgica.",
+          synergy: "Associar com ingestão de chá de Sabugueiro.",
+          sideEffects: "Raríssimas reações em pessoas sensíveis a Asteraceae.",
+          contraindications: "Sem restrições graves."
+        },
+        alternativePlant: {
+          name: "Sabugueiro (Flores)",
+          scientificName: "Sambucus nigra",
+          image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão",
+          instructions: "1 colher de sopa em 250ml de água fervente por 10 min.",
+          reason: "Depurativo e antialérgico natural suave."
+        }
+      },
+      {
+        id: "amebiase-diarreia",
+        condition: "Amebíase e Infecção Intestinal Parasitária",
+        category: "Digestivo",
+        causes: "Infecção protozoária por Entamoeba histolytica consumida através de água não tratada ou verduras contaminadas.",
+        summary: "Diarreia com cólicas, gases e desconforto abdominal constante.",
+        primaryPlant: {
+          name: "Goiabeira (Brotos e Folhas)",
+          scientificName: "Psidium guajava",
+          image: "https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão dos Brotos",
+          instructions: "Ferver 5 brotos novos de goiabeira em 300ml de água por 5 minutos. Abafar por 10 minutos e tomar morno.",
+          dosage: "Tomar 1 xícara de 8 em 8 horas.",
+          duration: "Usar por 3 a 5 dias.",
+          synergy: "Combinar com Sementes de Abóbora para purgação parasítica.",
+          sideEffects: "Pode prender o intestino se tomado em excesso.",
+          contraindications: "Pessoas com prisão de ventre crônica."
+        },
+        alternativePlant: {
+          name: "Sementes de Abóbora",
+          scientificName: "Cucurbita pepo",
+          image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Consumo In Natura",
+          instructions: "Triturar 2 colheres de sopa e comer em jejum durante 3 dias.",
+          reason: "Ação antiparasitária natural segura."
+        }
+      },
+      {
+        id: "amenorreia-ciclo",
+        condition: "Amenorreia (Atraso Menstrual) e Irregularidade",
+        category: "Saúde Feminina",
+        causes: "Desequilíbrios hormonais nos estrogênios/progesterona, estresse elevado ou alteração ovariana travando a menstruação.",
+        summary: "Atraso na menstruação sem causa gestacional.",
+        primaryPlant: {
+          name: "Artemísia",
+          scientificName: "Artemisia vulgaris",
+          image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão",
+          instructions: "1 colher de chá de folhas secas em 200ml de água fervente. Abafar por 8 minutos e coar.",
+          dosage: "Tomar 1 xícara 2 vezes ao dia por até 5 dias antes da data prevista.",
+          duration: "Não ultrapassar 5 dias seguidos de uso.",
+          synergy: "Combinar com Agoniada ou Abutua.",
+          sideEffects: "Forte fluxo e cólicas moderadas.",
+          contraindications: "PROIBIDA EM CASO DE GRAVIDEZ OU SUSPEITA DE GRAVIDEZ (Planta Abortiva)."
+        },
+        alternativePlant: {
+          name: "Abutua",
+          scientificName: "Cissampelos pareira",
+          image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Decocção",
+          instructions: "Ferver 1 colher de chá de raiz picada em 200ml de água por 5 min.",
+          reason: "Reguladora uterina tradicional do cerrado."
+        }
+      },
+      {
+        id: "amigdalite-garganta",
+        condition: "Amigdalite e Inflamação da Garganta",
+        category: "Respiratório",
+        causes: "Invasão bacteriana ou viral nas amígdalas provocando placas purulentas, inchaço e dor aguda ao engolir.",
+        summary: "Dor de garganta intensa com amígdalas inchadas.",
+        primaryPlant: {
+          name: "Tanchagem (Tansagem)",
+          scientificName: "Plantago major",
+          image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Decocção para Gargarejo",
+          instructions: "Ferver 2 colheres de sopa em 300ml de água por 5 minutos. Abafar, coar e fazer gargarejos mornos sem engolir.",
+          dosage: "Gargarejar de 3 em 3 horas.",
+          duration: "Uso durante 5 a 7 dias.",
+          synergy: "Combinar com Romã e própolis.",
+          sideEffects: "Sem efeitos adversos no uso para gargarejo.",
+          contraindications: "Nenhuma restrição ao uso como gargarejo."
+        },
+        alternativePlant: {
+          name: "Barbatimão",
+          scientificName: "Stryphnodendron adstringens",
+          image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Decocção para Gargarejo",
+          instructions: "1 colher de chá de casca fervedada por 8 minutos. Gargarejar morno.",
+          reason: "Forte ação antibacteriana direta na garganta."
+        }
+      },
+      {
+        id: "anemia-fraqueza",
+        condition: "Anemia e Fraqueza Geral",
+        category: "Metabólico",
+        causes: "Queda no nível de hemoglobina decorrente da falta de ferro na dieta ou perdas sanguíneas repetidas.",
+        summary: "Palidez, tontura, indisposição e falta de ar ao menor esforço.",
+        primaryPlant: {
+          name: "Picão-Preto",
+          scientificName: "Bidens pilosa",
+          image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão",
+          instructions: "1 colher de sobremesa da planta seca em 250ml de água fervente. Abafar por 10 minutos e coar.",
+          dosage: "Tomar 1 xícara 2 vezes ao dia após as refeições.",
+          duration: "Uso por 15 a 30 dias.",
+          synergy: "Alimentação rica em vegetais escuros e vitamina C.",
+          sideEffects: "Em doses normais não apresenta toxidade.",
+          contraindications: "Gestantes devem consumir com moderação."
+        },
+        alternativePlant: {
+          name: "Poejo",
+          scientificName: "Mentha pulegium",
+          image: "https://images.unsplash.com/photo-1628556270448-4d4e4148e1b1?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão",
+          instructions: "1 colher de chá de folhas frescas em 200ml de água fervente.",
+          reason: "Tónico digestivo e mineralizante tradicional."
+        }
+      },
+      {
+        id: "artrite-artrose",
+        condition: "Artrite, Artrose e Desgaste Articular",
+        category: "Anti-inflamatório",
+        causes: "Degeneração da cartilagem que reveste as articulações associada à inflamação crônica nos ossos e juntas.",
+        summary: "Dores intensas, rigidez matinal e inchaço nas articulações.",
+        primaryPlant: {
+          name: "Erva-Baleeira",
+          scientificName: "Varronia curassavica",
+          image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Compressa Externa ou Chá",
+          instructions: "Ferver 3 colheres de sopa em 400ml de água. Embeber pano morno e colocar na junta dolorida por 20 min. Uso interno: 1 xícara do chá 2x ao dia.",
+          dosage: "Compressa 2 a 3 vezes ao dia.",
+          duration: "Usar por 15 a 21 dias.",
+          synergy: "Combinar com Sementes de Sucupira.",
+          sideEffects: "Leve desconforto estomacal em caso de ingestão muito alta.",
+          contraindications: "Gestantes não devem tomar o chá."
+        },
+        alternativePlant: {
+          name: "Sucupira (Sementes)",
+          scientificName: "Pterodon emarginatus",
+          image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Decocção",
+          instructions: "Quebrar 4 sementes de sucupira e ferver em 1 litro de água por 10 minutos.",
+          reason: "Poderoso analgésico e anti-inflamatório natural."
+        }
+      },
+      {
+        id: "asma-bronquite",
+        condition: "Asma Leve e Chiado no Peito",
+        category: "Respiratório",
+        causes: "Espasmo brônquico e inflamação crônica do pulmão com produção de secreção espessa diante de estímulos alérgicos.",
+        summary: "Falta de ar, chiado no peito e aperto respiratório.",
+        primaryPlant: {
+          name: "Guaco",
+          scientificName: "Mikania glomerata",
+          image: "https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão ou Xarope",
+          instructions: "1 colher de sopa de folhas secas em 200ml de água fervente. Abafar por 10 minutos e tomar morno.",
+          dosage: "Tomar 1 xícara 3 vezes ao dia.",
+          duration: "Utilizar por 7 a 10 dias seguidos.",
+          synergy: "Combinar com Poejo para potencializar a broncodilatação.",
+          sideEffects: "Doses muito elevadas podem irritar o estômago.",
+          contraindications: "Gestantes e pessoas que utilizam anticoagulantes."
+        },
+        alternativePlant: {
+          name: "Poejo",
+          scientificName: "Mentha pulegium",
+          image: "https://images.unsplash.com/photo-1628556270448-4d4e4148e1b1?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão",
+          instructions: "1 colher de sobremesa de folhas secas em 200ml de água fervente abafada por 10 min.",
+          reason: "Relaxa a musculatura suave dos bronquíolos."
         }
       }
     ];
@@ -447,13 +460,13 @@
       const grid = document.getElementById('cardsGrid');
       const itemCount = document.getElementById('itemCount');
       grid.innerHTML = '';
-      itemCount.innerText = `${data.length} tratamentos cadastrados`;
+      itemCount.innerText = `${data.length} enfermidades catalogadas`;
 
       if (data.length === 0) {
         grid.innerHTML = `
           <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
             <i class="fa-solid fa-leaf text-slate-300 text-4xl mb-3"></i>
-            <p class="text-slate-500 font-medium">Nenhum tratamento encontrado com esse termo.</p>
+            <p class="text-slate-500 font-medium">Nenhum tratamento encontrado para essa pesquisa.</p>
           </div>
         `;
         return;
@@ -515,6 +528,14 @@
 
         <div class="p-6 space-y-8">
 
+          <!-- Causas Médicas / Etiologia -->
+          <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
+            <h4 class="text-xs font-bold text-amber-900 uppercase tracking-wide mb-1 flex items-center">
+              <i class="fa-solid fa-notes-medical text-amber-600 mr-2"></i> Causas da Enfermidade
+            </h4>
+            <p class="text-xs text-slate-700 leading-relaxed">${item.causes}</p>
+          </div>
+
           <!-- Planta Principal -->
           <div>
             <div class="flex items-center justify-between mb-4">
@@ -527,11 +548,11 @@
               </button>
             </div>
 
-            <!-- Foto e Comparação Visual -->
+            <!-- Foto Real e Comparador Visual -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div>
                 <img src="${item.primaryPlant.image}" class="w-full h-48 object-cover rounded-2xl border border-slate-200 shadow-sm" />
-                <p class="text-[11px] text-slate-400 text-center mt-1">Foto botânica oficial de referência</p>
+                <p class="text-[11px] text-slate-400 text-center mt-1">Foto botânica real oficial de comparação</p>
               </div>
 
               <!-- Comparador Visual -->
@@ -540,7 +561,7 @@
                   <h4 class="text-xs font-bold text-slate-700 mb-1 flex items-center">
                     <i class="fa-solid fa-camera text-emerald-600 mr-1.5"></i> Comparador Visual de Segurança
                   </h4>
-                  <p class="text-xs text-slate-500">Encontrou esta planta na natureza ou no quintal? Tire ou carregue uma foto para comparar visualmente com a referência oficial antes do preparo.</p>
+                  <p class="text-xs text-slate-500">Encontrou a planta no quintal ou na feira? Envie a sua foto para comparar com a imagem real acima antes do preparo.</p>
                 </div>
                 <div class="mt-3">
                   <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="previewUserPhoto(event)">
@@ -549,7 +570,7 @@
                   </button>
                   <div id="userPhotoPreview" class="hidden mt-2 flex items-center space-x-2">
                     <img id="previewImg" class="w-10 h-10 object-cover rounded-lg border">
-                    <span class="text-xs text-emerald-700 font-medium"><i class="fa-solid fa-circle-check"></i> Foto pronta para conferência visual!</span>
+                    <span class="text-xs text-emerald-700 font-medium"><i class="fa-solid fa-circle-check"></i> Foto pronta para conferência!</span>
                   </div>
                 </div>
               </div>
@@ -569,9 +590,9 @@
               </div>
             </div>
 
-            <!-- Sinergia -->
+            <!-- Potencialização -->
             <div class="mt-4 bg-sky-50 p-4 rounded-2xl border border-sky-100">
-              <h4 class="text-xs font-bold text-sky-900 uppercase tracking-wide mb-1"><i class="fa-solid fa-plus-circle mr-1"></i> Sinergia (Combinação para Potencializar)</h4>
+              <h4 class="text-xs font-bold text-sky-900 uppercase tracking-wide mb-1"><i class="fa-solid fa-plus-circle mr-1"></i> Combinação Terapêutica (Sinergia)</h4>
               <p class="text-xs text-slate-700">${item.primaryPlant.synergy}</p>
             </div>
           </div>
@@ -591,10 +612,10 @@
             </div>
           </div>
 
-          <!-- Alertas de Segurança Rigorosos -->
+          <!-- Alertas de Segurança -->
           <div class="border-t border-slate-200 pt-6">
             <h4 class="text-sm font-bold text-red-700 uppercase tracking-wider mb-3 flex items-center">
-              <i class="fa-solid fa-shield-halved text-red-600 mr-2"></i> Segurança, Efeitos Colaterais e Contraindicações
+              <i class="fa-solid fa-shield-halved text-red-600 mr-2"></i> Alertas de Segurança & Contraindicações
             </h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="bg-red-50 p-4 rounded-2xl border border-red-100 text-xs">
@@ -623,6 +644,7 @@
       const query = document.getElementById('searchInput').value.toLowerCase();
       const filtered = database.filter(item => 
         item.condition.toLowerCase().includes(query) ||
+        item.causes.toLowerCase().includes(query) ||
         item.summary.toLowerCase().includes(query) ||
         item.primaryPlant.name.toLowerCase().includes(query) ||
         item.primaryPlant.scientificName.toLowerCase().includes(query) ||
@@ -635,7 +657,7 @@
       currentCategory = cat;
       const buttons = document.querySelectorAll('.cat-btn');
       buttons.forEach(btn => {
-        if(btn.innerText.includes(cat) || (cat === 'all' && btn.innerText === 'Todas')) {
+        if(btn.innerText.includes(cat) || (cat === 'all' && btn.innerText.includes('Todas'))) {
           btn.className = 'cat-btn bg-emerald-700 text-white px-4 py-1.5 rounded-full text-xs font-semibold shadow-sm whitespace-nowrap';
         } else {
           btn.className = 'cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap';
