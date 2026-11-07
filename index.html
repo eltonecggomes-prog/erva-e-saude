@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erva & Saúde - Guia Fitoterapêutico</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-emerald-50/50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-emerald-800 text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="resetViews()">
+        <div class="bg-emerald-700 p-2 rounded-xl text-emerald-200">
+          <i class="fa-solid font-bold fa-leaf text-2xl"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold tracking-tight">Erva & Saúde</h1>
+          <p class="text-xs text-emerald-200">Guia de Fitoterapia & Saúde Natural</p>
+        </div>
+      </div>
+      <button onclick="toggleFavoritesView()" class="flex items-center space-x-1 bg-emerald-700 hover:bg-emerald-600 px-3 py-2 rounded-lg text-sm font-medium transition">
+        <i class="fa-solid fa-bookmark text-amber-300"></i>
+        <span class="hidden sm:inline">Salvos</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Legal Disclaimer Banner -->
+  <div class="bg-amber-100 border-l-4 border-amber-500 text-amber-900 p-4 text-xs sm:text-sm">
+    <div class="max-w-4xl mx-auto flex items-start space-x-3">
+      <i class="fa-solid fa-triangle-exclamation text-amber-600 text-lg mt-0.5"></i>
+      <div>
+        <strong>Aviso de Saúde Importante:</strong> Este aplicativo possui caráter puramente educativo e informativo. O uso de plantas medicinais não substitui a consulta, o diagnóstico e o tratamento oferecido por médicos ou profissionais de saúde qualificados.
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-4xl mx-auto px-4 py-6 flex-1 w-full">
+
+    <!-- Search Section -->
+    <div id="searchContainer" class="mb-8">
+      <div class="relative">
+        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+        <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Buscar por doença (ex: insônia, tosse) ou planta (ex: guaco)..." 
+          class="w-full pl-11 pr-4 py-3.5 bg-white rounded-2xl border border-emerald-100 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent text-slate-700">
+      </div>
+      
+      <!-- Quick Categories -->
+      <div class="flex space-x-2 mt-4 overflow-x-auto pb-2 hide-scrollbar">
+        <button onclick="filterCategory('all')" class="cat-btn bg-emerald-700 text-white px-4 py-1.5 rounded-full text-xs font-semibold shadow-sm whitespace-nowrap">Todas</button>
+        <button onclick="filterCategory('Digestivo')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Digestivo</button>
+        <button onclick="filterCategory('Respiratório')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Respiratório</button>
+        <button onclick="filterCategory('Calmante')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Calmante / Ansiedade</button>
+        <button onclick="filterCategory('Anti-inflamatório')" class="cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Anti-inflamatório</button>
+      </div>
+    </div>
+
+    <!-- Main List Container -->
+    <div id="listContainer">
+      <h2 id="listTitle" class="text-lg font-bold text-slate-800 mb-4 flex items-center justify-between">
+        <span>Guia de Tratamentos Naturais</span>
+        <span id="itemCount" class="text-xs font-normal bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full"></span>
+      </h2>
+      <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Dynamic Cards Inserted Here -->
+      </div>
+    </div>
+
+    <!-- Detail View Modal/Container -->
+    <div id="detailContainer" class="hidden bg-white rounded-3xl shadow-xl border border-emerald-100 overflow-hidden">
+      <!-- Dynamic Detail View Inserted Here -->
+    </div>
+
+  </main>
+
+  <footer class="bg-slate-800 text-slate-400 py-6 text-center text-xs border-t border-slate-700 mt-12">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="mb-2">Erva & Saúde • Baseado em princípios fitoterapêuticos tradicionais e diretrizes da ANVISA.</p>
+      <p>Desenvolvido para uso educativo e preservação do conhecimento da medicina natural.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Database of plants and treatments based on herbal medicine principles (e.g. Farmacopeia Brasileira / Daniel Forjaz)
+    const database = [
+      {
+        id: "tosse-gripe",
+        condition: "Tosse, Bronquite e Gripe",
+        category: "Respiratório",
+        summary: "Alívio sintomático de afecções respiratórias, tosse persistente e acúmulo de secreção.",
+        primaryPlant: {
+          name: "Guaco",
+          scientificName: "Mikania glomerata",
+          image: "https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Xarope ou Decocção/Infusão",
+          instructions: "Para infusão: Adicionar 1 colher de sopa de folhas picadas em 150ml de água fervente. Tampar por 10 min. Para xarope: Cozinhar o chá concentrado com mel ou açúcar mascavo até ponto de xarope.",
+          dosage: "Tomar 1 xícara do chá 3 vezes ao dia, ou 1 colher de sopa do xarope de 8 em 8 horas.",
+          duration: "Utilizar por no máximo 7 a 10 dias seguidos.",
+          synergy: "Pode ser combinado com Hortelã ou Poejo para potencializar a ação expectorante e broncodilatadora.",
+          sideEffects: "Em doses excessivas pode causar náuseas, vômitos ou aumento do fluxo menstrual.",
+          contraindications: "Contraindicado para gestantes, lactantes, crianças menores de 2 anos e pessoas que utilizam anticoagulantes (devido à presença de coumarina)."
+        },
+        alternativePlant: {
+          name: "Hortelã-Pimenta",
+          scientificName: "Mentha x piperita",
+          image: "https://images.unsplash.com/photo-1628556270448-4d4e4148e1b1?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão",
+          instructions: "Adicionar 1 colher de sobremesa de folhas frescas ou secas em 200ml de água fervente. Deixar abafado por 5 a 8 minutos.",
+          reason: "Excelente substituto para desobstrução das vias aéreas devido ao alto teor de mentol."
+        }
+      },
+      {
+        id: "insonia-ansiedade",
+        condition: "Insônia e Ansiedade Leve",
+        category: "Calmante",
+        summary: "Dificuldade para adormecer, agitação nervosa e estresse acumulado.",
+        primaryPlant: {
+          name: "Camomila",
+          scientificName: "Matricaria chamomilla",
+          image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão",
+          instructions: "Adicionar 1 a 2 colheres de sopa de flores secas de camomila em 250ml de água fervente. Tampar e aguardar 10 minutos antes de coar.",
+          dosage: "Beber 1 xícara 30 a 60 minutos antes de deitar, ou 2 a 3 vezes ao dia em quadros de ansiedade.",
+          duration: "Uso contínuo seguro por até 3 a 4 semanas.",
+          synergy: "Combinar com Erva-Cidreira (Melisa) ou Passiflora (folha do maracujá) para aprofundar o efeito relaxante.",
+          sideEffects: "Raramente reações alérgicas em pessoas sensíveis a plantas da família Asteraceae.",
+          contraindications: "Pessoas em uso de sedativos fortes devem evitar excessos para não potencializar o efeito de sonolência."
+        },
+        alternativePlant: {
+          name: "Capim-Limão (Capim-Santo)",
+          scientificName: "Cymbopogon citratus",
+          image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão",
+          instructions: "Picar 2 colheres de sopa de folhas frescas em 250ml de água fervente. Abafar por 10 minutos.",
+          reason: "Possui ação calmante e espasmolítica, perfeita substituta caso não encontre camomila."
+        }
+      },
+      {
+        id: "ma-digestao-azia",
+        condition: "Má Digestão, Azia e Gastrite Leve",
+        category: "Digestivo",
+        summary: "Sensação de estômago pesado, azia, gases e desconforto abdominal pós-refeição.",
+        primaryPlant: {
+          name: "Espinheira-Santa",
+          scientificName: "Monteverdia ilicifolia",
+          image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão",
+          instructions: "Adicionar 1 colher de sopa de folhas secas em 200ml de água fervente. Abafar por 10 a 15 minutos e coar.",
+          dosage: "Tomar 1 xícara morna cerca de 30 minutos antes das principais refeições (almoço e jantar).",
+          duration: "Uso recomendado por 14 a 21 dias.",
+          synergy: "Pode ser associada à Carqueja para potencializar a digestão hepática.",
+          sideEffects: "Pode causar boca seca ou ligeira alteração no paladar em doses elevadas.",
+          contraindications: "Contraindicada durante a gravidez (risco de contração uterina) e amamentação (pode reduzir a produção de leite)."
+        },
+        alternativePlant: {
+          name: "Boldo-do-Chile / Boldo-Baiano",
+          scientificName: "Peumus boldus / Plectranthus barbatus",
+          image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Infusão ou Macerado a Frio",
+          instructions: "Macerar 2 folhas frescas em 200ml de água fria ou fazer infusão por 5 minutos.",
+          reason: "Excelente alternativa digestiva e protetora do fígado."
+        }
+      },
+      {
+        id: "dores-articulares",
+        condition: "Dores Articulares e Inflamação",
+        category: "Anti-inflamatório",
+        summary: "Dores locais, sintomas de artrite, dores musculares e processos inflamatórios.",
+        primaryPlant: {
+          name: "Erva-Baleeira",
+          scientificName: "Varronia curassavica",
+          image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Cataplasma / Compressa ou Infusão",
+          instructions: "Para compressa: Fazer infusão concentrada (3 colheres de sopa em 300ml de água), embeber um pano limpo e aplicar morno sobre a articulação dolorida por 20 minutos.",
+          dosage: "Aplicação local de 2 a 3 vezes ao dia. Se for uso interno (chá), tomar 1 xícara de 12 em 12h.",
+          duration: "Uso por até 15 dias consecutivos.",
+          synergy: "Pode ser combinada com Arnica (para uso externo) no alívio de contusões.",
+          sideEffects: "Pode provocar irritação gástrica se ingerida em quantidades excessivas.",
+          contraindications: "Uso interno contraindicado para gestantes e pessoas com úlceras gástricas ativas."
+        },
+        alternativePlant: {
+          name: "Sucupira (Sementes)",
+          scientificName: "Pterodon emarginatus",
+          image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
+          preparationType: "Decocção",
+          instructions: "Quebrar 4 sementes de sucupira e ferver em 1 litro de água por 10 minutos.",
+          reason: "Forte ação analgésica e anti-inflamatória natural alternativa."
+        }
+      }
+    ];
+
+    let favorites = JSON.parse(localStorage.getItem('erva_favorites')) || [];
+    let currentCategory = 'all';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCards(database);
+    });
+
+    function renderCards(data) {
+      const grid = document.getElementById('cardsGrid');
+      const itemCount = document.getElementById('itemCount');
+      grid.innerHTML = '';
+      itemCount.innerText = `${data.length} opções`;
+
+      if (data.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
+            <i class="fa-solid fa-leaf text-slate-300 text-4xl mb-3"></i>
+            <p class="text-slate-500 font-medium">Nenhum tratamento ou planta encontrada.</p>
+          </div>
+        `;
+        return;
+      }
+
+      data.forEach(item => {
+        const isFav = favorites.includes(item.id);
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-2xl p-5 border border-emerald-100 shadow-sm hover:shadow-md transition flex flex-col justify-between cursor-pointer";
+        card.onclick = () => showDetail(item.id);
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-full">${item.category}</span>
+              <button onclick="event.stopPropagation(); toggleFavorite('${item.id}')" class="text-slate-300 hover:text-amber-400 transition">
+                <i class="${isFav ? 'fa-solid text-amber-400' : 'fa-regular'} fa-star text-lg"></i>
+              </button>
+            </div>
+            <h3 class="text-lg font-bold text-slate-800 mb-1">${item.condition}</h3>
+            <p class="text-xs text-slate-500 mb-4 line-clamp-2">${item.summary}</p>
+          </div>
+          <div class="border-t border-slate-100 pt-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <img src="${item.primaryPlant.image}" class="w-8 h-8 rounded-full object-cover border border-emerald-300" />
+              <span class="text-xs font-semibold text-emerald-900">${item.primaryPlant.name}</span>
+            </div>
+            <span class="text-xs text-emerald-600 font-medium flex items-center">Ver detalhes <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i></span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function showDetail(id) {
+      const item = database.find(d => d.id === id);
+      if (!item) return;
+
+      const isFav = favorites.includes(item.id);
+      const detailContainer = document.getElementById('detailContainer');
+      const listContainer = document.getElementById('listContainer');
+      const searchContainer = document.getElementById('searchContainer');
+
+      listContainer.classList.add('hidden');
+      searchContainer.classList.add('hidden');
+      detailContainer.classList.remove('hidden');
+
+      detailContainer.innerHTML = `
+        <div class="bg-emerald-800 text-white p-6 relative">
+          <button onclick="resetViews()" class="absolute left-4 top-4 bg-emerald-700/80 hover:bg-emerald-600 text-white p-2 rounded-full w-9 h-9 flex items-center justify-center transition">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+          <div class="mt-6">
+            <span class="bg-emerald-700 text-emerald-200 text-xs font-semibold px-3 py-1 rounded-full">${item.category}</span>
+            <h2 class="text-2xl font-bold mt-2">${item.condition}</h2>
+            <p class="text-emerald-100 text-sm mt-1">${item.summary}</p>
+          </div>
+        </div>
+
+        <div class="p-6 space-y-8">
+
+          <!-- Planta Principal -->
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Planta Principal Recomendada</span>
+                <h3 class="text-xl font-bold text-slate-800">${item.primaryPlant.name} <span class="text-sm font-normal italic text-slate-500">(${item.primaryPlant.scientificName})</span></h3>
+              </div>
+              <button onclick="toggleFavorite('${item.id}')" class="bg-slate-100 hover:bg-slate-200 p-2.5 rounded-full transition">
+                <i class="${isFav ? 'fa-solid text-amber-400' : 'fa-regular text-slate-400'} fa-star text-xl"></i>
+              </button>
+            </div>
+
+            <!-- Foto e Comparação Visual -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div>
+                <img src="${item.primaryPlant.image}" class="w-full h-48 object-cover rounded-2xl border border-slate-200 shadow-sm" />
+                <p class="text-[11px] text-slate-400 text-center mt-1">Imagem oficial de referência botânica</p>
+              </div>
+
+              <!-- Comparador Visual -->
+              <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                <div>
+                  <h4 class="text-xs font-bold text-slate-700 mb-1 flex items-center">
+                    <i class="fa-solid fa-camera text-emerald-600 mr-1.5"></i> Comparador Visual da Planta
+                  </h4>
+                  <p class="text-xs text-slate-500">Encontrou essa planta na natureza ou quintal? Envie uma foto para comparar visualmente com a imagem oficial de referência.</p>
+                </div>
+                <div class="mt-3">
+                  <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="previewUserPhoto(event)">
+                  <button onclick="document.getElementById('photoInput').click()" class="w-full bg-white border border-slate-300 hover:border-emerald-500 text-slate-700 py-2 rounded-xl text-xs font-semibold shadow-sm transition">
+                    Carregar Minha Foto
+                  </button>
+                  <div id="userPhotoPreview" class="hidden mt-2 flex items-center space-x-2">
+                    <img id="previewImg" class="w-10 h-10 object-cover rounded-lg border">
+                    <span class="text-xs text-emerald-700 font-medium"><i class="fa-solid fa-circle-check"></i> Foto pronta para comparação!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Guia de Preparo e Uso -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-emerald-50/60 p-4 rounded-2xl border border-emerald-100">
+                <h4 class="text-xs font-bold text-emerald-900 uppercase tracking-wide mb-1">Modo de Preparo (${item.primaryPlant.preparationType})</h4>
+                <p class="text-xs text-slate-700 leading-relaxed">${item.primaryPlant.instructions}</p>
+              </div>
+
+              <div class="bg-emerald-50/60 p-4 rounded-2xl border border-emerald-100">
+                <h4 class="text-xs font-bold text-emerald-900 uppercase tracking-wide mb-1">Posologia & Tempo de Uso</h4>
+                <p class="text-xs text-slate-700 mb-1"><strong>Como tomar:</strong> ${item.primaryPlant.dosage}</p>
+                <p class="text-xs text-slate-700"><strong>Duração máxima:</strong> ${item.primaryPlant.duration}</p>
+              </div>
+            </div>
+
+            <!-- Potencialização -->
+            <div class="mt-4 bg-sky-50 p-4 rounded-2xl border border-sky-100">
+              <h4 class="text-xs font-bold text-sky-900 uppercase tracking-wide mb-1"><i class="fa-solid fa-plus-circle mr-1"></i> Combinação Terapêutica (Sinergia)</h4>
+              <p class="text-xs text-slate-700">${item.primaryPlant.synergy}</p>
+            </div>
+          </div>
+
+          <!-- Planta Alternativa -->
+          <div class="border-t border-slate-200 pt-6">
+            <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Não encontrou a planta acima?</span>
+            <h4 class="text-lg font-bold text-slate-800 mb-3">Planta Alternativa de Mesmo Efeito: ${item.alternativePlant.name}</h4>
+            
+            <div class="flex flex-col sm:flex-row gap-4 bg-amber-50/60 p-4 rounded-2xl border border-amber-100">
+              <img src="${item.alternativePlant.image}" class="w-full sm:w-28 h-24 object-cover rounded-xl border border-amber-200">
+              <div class="text-xs text-slate-700 space-y-1">
+                <p><strong>Nome Científico:</strong> <em>${item.alternativePlant.scientificName}</em></p>
+                <p><strong>Por que substitui:</strong> ${item.alternativePlant.reason}</p>
+                <p><strong>Preparo:</strong> ${item.alternativePlant.instructions}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alertas de Segurança -->
+          <div class="border-t border-slate-200 pt-6">
+            <h4 class="text-sm font-bold text-red-700 uppercase tracking-wider mb-3 flex items-center">
+              <i class="fa-solid fa-shield-halved text-red-600 mr-2"></i> Informações Importantes de Segurança
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="bg-red-50 p-4 rounded-2xl border border-red-100 text-xs">
+                <span class="font-bold text-red-900 block mb-1">Quem NÃO deve usar (Contraindicações):</span>
+                <p class="text-red-800">${item.primaryPlant.contraindications}</p>
+              </div>
+              <div class="bg-orange-50 p-4 rounded-2xl border border-orange-100 text-xs">
+                <span class="font-bold text-orange-900 block mb-1">Possíveis Efeitos Colaterais:</span>
+                <p class="text-orange-800">${item.primaryPlant.sideEffects}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    function resetViews() {
+      document.getElementById('listContainer').classList.remove('hidden');
+      document.getElementById('searchContainer').classList.remove('hidden');
+      document.getElementById('detailContainer').classList.add('hidden');
+      renderCards(database);
+    }
+
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = database.filter(item => 
+        item.condition.toLowerCase().includes(query) ||
+        item.primaryPlant.name.toLowerCase().includes(query) ||
+        item.primaryPlant.scientificName.toLowerCase().includes(query) ||
+        item.alternativePlant.name.toLowerCase().includes(query)
+      );
+      renderCards(filtered);
+    }
+
+    function filterCategory(cat) {
+      currentCategory = cat;
+      const buttons = document.querySelectorAll('.cat-btn');
+      buttons.forEach(btn => {
+        if(btn.innerText.includes(cat) || (cat === 'all' && btn.innerText === 'Todas')) {
+          btn.className = 'cat-btn bg-emerald-700 text-white px-4 py-1.5 rounded-full text-xs font-semibold shadow-sm whitespace-nowrap';
+        } else {
+          btn.className = 'cat-btn bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap';
+        }
+      });
+
+      if (cat === 'all') {
+        renderCards(database);
+      } else {
+        const filtered = database.filter(item => item.category === cat);
+        renderCards(filtered);
+      }
+    }
+
+    function toggleFavorite(id) {
+      if (favorites.includes(id)) {
+        favorites = favorites.filter(favId => favId !== id);
+      } else {
+        favorites.push(id);
+      }
+      localStorage.setItem('erva_favorites', JSON.stringify(favorites));
+      
+      const detailContainer = document.getElementById('detailContainer');
+      if (!detailContainer.classList.contains('hidden')) {
+        showDetail(id);
+      } else {
+        renderCards(database);
+      }
+    }
+
+    function toggleFavoritesView() {
+      const favItems = database.filter(item => favorites.includes(item.id));
+      renderCards(favItems);
+      document.getElementById('listTitle').querySelector('span').innerText = "Seus Tratamentos Salvos";
+    }
+
+    function previewUserPhoto(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('previewImg').src = e.target.result;
+          document.getElementById('userPhotoPreview').classList.remove('hidden');
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
+</body>
+</html>
